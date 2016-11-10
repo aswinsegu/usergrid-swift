@@ -348,11 +348,11 @@ Usergrid.authenticateUser(userAuth,setAsCurrentUser: false) { auth, user, error 
 
 Auth-mode is used to determine what the `UsergridClient` will use for authorization.
 
-By default, `Usergrid.authMode` is set to `.User`, whereby If a non-expired `UsergridUserAuth` exists in `UsergridClient.currentUser`, this token is used to authenticate all API calls.
+By default, `Usergrid.authMode` is set to `.User`, whereby if a non-expired `UsergridUserAuth` exists in `UsergridClient.currentUser`, this token is used to authenticate all API calls.
 
-If instead `Usergrid.authMode` is set to `.None`, whereby when a token is *not* present, an API call will be performed unauthenticated. 
+If instead `Usergrid.authMode` is set to `.None`, all API calls will be performed unauthenticated. 
 
-If instead `Usergrid.authMode` is set to `.App`, the API call will instead be performed using client credentials, _if_ they're available (i.e. `authenticateApp()` was performed at some point). 
+If instead `Usergrid.authMode` is set to `.App`, all API calls will be performed using the client credentials token, _if_ they're available (i.e. `authenticateApp()` was performed at some point). 
 
 ### usingAuth()
 
