@@ -307,7 +307,7 @@ entity.remove() { response in
 }
 ```
 
-## Authentication, current user, and auth-fallback
+## Authentication, current user, and authMode
 
 ### appAuth and authenticateApp()
 
@@ -344,13 +344,15 @@ Usergrid.authenticateUser(userAuth,setAsCurrentUser: false) { auth, user, error 
 }
 ```
 
-### authFallback
+### authMode
 
-Auth-fallback defines what the client should do when a user token is not present. 
+Auth-mode is used to determine what the `UsergridClient` will use for authorization.
 
-By default, `Usergrid.authFallback` is set to `.None`, whereby when a token is *not* present, an API call will be performed unauthenticated. 
+By default, `Usergrid.authMode` is set to `.User`, whereby If a non-expired `UsergridUserAuth` exists in `UsergridClient.currentUser`, this token is used to authenticate all API calls.
 
-If instead `Usergrid.authFallback` is set to `.App`, the API call will instead be performed using client credentials, _if_ they're available (i.e. `authenticateApp()` was performed at some point). 
+If instead `Usergrid.authMode` is set to `.None`, whereby when a token is *not* present, an API call will be performed unauthenticated. 
+
+If instead `Usergrid.authMode` is set to `.App`, the API call will instead be performed using client credentials, _if_ they're available (i.e. `authenticateApp()` was performed at some point). 
 
 ### usingAuth()
 
@@ -359,7 +361,7 @@ At times it is desireable to have complete, granular control over the authentica
 To facilitate this, the passthrough function `.usingAuth()` allows you to pre-define the auth context of the next API call.
 
 ```swift
-// assume Usergrid.authFallback = .None
+// assume Usergrid.authMode = .None
     
 Usergrid.usingAuth(Usergrid.appAuth!).POST("roles/guest/permissions", jsonBody: ["permission" : "get,post,put,delete:/**"] ) { response in
     // here we've temporarily used the client credentials to modify permissions
